@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Vulnerability Scanner</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+  
+    body {
+        font-family: 'Calibri', sans-serif;
+        background-image: url('static/scanner1.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed; 
+    }
+</style>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/"> <img src="/static/lock.jpg" alt="Logo" width="70" height="50" class="d-inline-block align-top"></a>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container mt-5">
+
+    <h1 class="text-center mb-4">Welcome to My Web Vulnerability Scanner</h1>
+    <p class="lead text-center">This web application is designed to help users identify common web vulnerabilities in websites. It scans for Cross-Site Scripting (XSS), Cross-Site Request Forgery (CSRF), Injection Flaws, SQL Injection, Open Redirect, and Server-Side Request Forgery (SSRF).</p>
+    
+    <form action="/scan" method="post" class="mt-5">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" name="url" placeholder="Please enter the Website URL....">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit" style="background-color: #007bff; border-color: #007bff;">Scan</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="mt-5">
+        <h2 class="text-center mb-4">Recent Scans</h2>
+        <ul class="list-group">
+            {% for scan in saved_scans %}
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <a href="{{ scan.url }}">{{ scan.url }}</a>
+                        <ul class="list-unstyled">
+                            <li>XSS Severity: {{ scan.xss_severity }}</li>
+                            <li>CSRF Severity: {{ scan.csrf_severity }}</li>
+                            <li>Injection Severity: {{ scan.injection_severity }}</li>
+                            <li>SQL Injection Severity: {{ scan.sql_injection_severity }}</li>
+                            <li>Open Redirect Severity: {{ scan.open_redirect_severity }}</li>
+                            <li>SSRF Severity: {{ scan.ssrf_severity }}</li>
+                        </ul>
+                    </div>
+                    <form action="/delete/{{ scan.id }}" method="post" class="d-inline">
+                        <button class="btn btn-danger btn-sm ml-2" type="submit">Delete</button>
+                    </form>
+                    
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

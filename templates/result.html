@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Vulnerability Scanner</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Calibri', sans-serif;
+            background-image: url('static/scanner1.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Web Vulnerability Scanner</a>
+</nav>
+
+<div class="container mt-5">
+
+    <div class="mt-5">
+        <h1>Scan Results</h1>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2>XSS Detection</h2>
+            </div>
+            <div class="card-body">
+                <p>Severity: {{ results.xss.severity }}</p>
+                <p>Comment: {{ results.xss.comment }}</p>
+                <p>Action: {{ results.xss.action }}</p>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2>CSRF Detection</h2>
+            </div>
+            <div class="card-body">
+                <p>Severity: {{ results.csrf.severity }}</p>
+                <p>Comment: {{ results.csrf.comment }}</p>
+                <p>Action: {{ results.csrf.action }}</p>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2>Injection Detection</h2>
+            </div>
+            <div class="card-body">
+                <p>Severity: {{ results.injection.severity }}</p>
+                <p>Comment: {{ results.injection.comment }}</p>
+                <p>Action: {{ results.injection.action }}</p>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2>SQL Injection Detection</h2>
+            </div>
+            <div class="card-body">
+                <p>Severity: {{ results.sql_injection.severity }}</p>
+                <p>Comment: {{ results.sql_injection.comment }}</p>
+                <p>Action: {{ results.sql_injection.action }}</p>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2>Open Redirect Detection</h2>
+            </div>
+            <div class="card-body">
+                <p>Severity: {{ results.open_redirect.severity }}</p>
+                <p>Comment: {{ results.open_redirect.comment }}</p>
+                <p>Action: {{ results.open_redirect.action }}</p>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2>Server-Side Request Forgery (SSRF) Detection</h2>
+            </div>
+            <div class="card-body">
+                <p>Severity: {{ results.ssrf.severity }}</p>
+                <p>Comment: {{ results.ssrf.comment }}</p>
+                <p>Action: {{ results.ssrf.action }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <form action="/save" method="post">
+            <input type="hidden" name="url" value="{{ url }}">
+            <input type="hidden" name="xss" value="{{ results.xss.severity }}">
+            <input type="hidden" name="csrf" value="{{ results.csrf.severity }}">
+            <input type="hidden" name="injection" value="{{ results.injection.severity }}">
+            <input type="hidden" name="sql_injection" value="{{ results.sql_injection.severity }}">
+            <input type="hidden" name="open_redirect" value="{{ results.open_redirect.severity }}">
+            <input type="hidden" name="ssrf" value="{{ results.ssrf.severity }}">
+            <button class="btn btn-primary" type="submit">Save Results</button>
+        </form>
+    </div>
+
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>
